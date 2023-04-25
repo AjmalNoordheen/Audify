@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
+	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="gettemplates.co" />
+
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="asset/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="asset/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="asset/css/bootstrap.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="asset/css/flexslider.css">
+
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="asset/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="asset/css/owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="asset/css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="asset/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		.newh1{
+  color: black;
+  -webkit-text-fill-color: rgb(255, 255, 255); /* Will override color (regardless of order) */
+  -webkit-text-stroke-width:.1px;
+  -webkit-text-stroke-color: rgb(0, 0, 0);
+}
+		
+	</style>
+	</head>
+	<body style="background-color: rgb(255, 255, 255);">
+		
+	<div class="fh5co-loader"></div>
+	
+	<div id="page">
+	<nav class="fh5co-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-xs-2">
+					<!-- <div id="fh5co-logo"><a href="/shop">Shop</a></div> -->
+				</div>
+				<div class="col-md-5 col-xs-6 text-center menu-1">
+					<ul>
+						<li class="has-dropdown bg-white">
+							<a href="/shop">Shop</a>
+							
+						</li>
+						<li class="has-dropdown">
+							<a href="services.html">Services</a>
+							<ul class="dropdown">
+								<li><a href="#">Web Design</a></li>
+								<li><a href="#">eCommerce</a></li>
+								<li><a href="#">Branding</a></li>
+								<li><a href="#">API</a></li>
+							</ul>
+						</li>
+						<li><a href="about.html">Contact</a></li>
+						
+						<li><a href="/profile">Profile</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+					<ul>
+						<!-- <li class="search">
+							<div class="input-group">
+						      <input type="text" placeholder="Search..">
+						      <span class="input-group-btn">
+						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+						      </span>
+						    </div>
+						</li> -->
+						<li><a href="/whishlist"><i class="fa-solid fa-heart" style="color: #ffffff;"></i></a></li>
+						<li class="shopping-cart"><a href="/cart" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+					</ul>
+				</div>
+				<div class="col-lg-1 col-md-2 ">
+                    <div class="header_top_right">
+                        
+                      <% if(session!=null){ %>
+                        <div class="header_topright_auth">
+                            <a href="/logout"><i class="fa fa-user"></i> Logout</a>
+                        </div>
+                        <% }else{ %>
+                            <div class="header_topright_auth">
+                                <a href="/login"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                            <% } %>
+
+                </div>
+
+			</div>
+			
+		</div>
+	</nav>
+	
+	<aside id="fh5co-hero" class="js-fullheight">
+		<div class="flexslider js-fullheight">
+		<ul class="slides">
+           
+            <%for(let i=0;i<bannerData.length;i++){%>
+
+<li style= "background-image: url(images/<%=bannerData[i].images[0]%>); "  >
+                
+				<div class="overlay-gradient"></div>
+				<div class="container">
+					<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+						<div class="slider-text-inner">
+							<div class="desc">
+								
+								<h2 style="font-family:'Nike Futura','Helvetica Neue',Helvetica,Arial,sans-serif; " class="newh1"><%=bannerData[i].subtitle %></h2>
+								<p style="color: rgba(212, 214, 211, 0.74);"><%=bannerData[i].description %></p>
+								<p><a href="/shop" class="btn btn-primary btn-outline btn-lg">Shop Now</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<% 	} %>
+           
+		   
+           
+		   
+		</ul>
+	  	</div>
+	</aside>
+
+	<!-- <div  class="fh5co-bg-section" style=" background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); ">
+		
+		<img width="100%"  src="productimages/nike-just-do-it.jpg" alt="">
+		<hr>
+		<h1 style="text-align: center; padding-top: 53px; font-family: 'Nike Futura','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 54px;">STEP IN TO WHAT YOU FEEL</h1>
+		<p style="font-family: 'Courier New', Courier, monospace;  text-align: center;">Cause everyone should know the feeling of running in that perfect pair.</p>
+		<a href="/shop"><div style="display: flex; justify-content: center;"><button style="font-family: 'Nike Futura','Helvetica Neue',Helvetica,Arial,sans-serif; color: white; border-radius: 50px;  background-color: black;     width: 141px;
+			height: 53px;">Find your Audio</button></div></a>
+		
+			<hr>	
+
+	</div> -->
+	<div id="fh5co-product">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					
+					<span>Cool Stuff</span>
+					<h2 style="color: rgb(0, 0, 0);">Products.</h2>
+					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+				</div>
+			</div>
+			<div class="row">
+			
+                <% for( let i = 0; i < productData.length ; i++ ) { %>
+					<% if(productData[i].is_flagged==0){ %>
+				
+                <!-- <form action="/cart?id=" method="post"> -->
+               
+				<div class="col-sm-6 col-md-4 text-center animate-box">
+					<div class="product">
+						<div class="product-grid" style="background-image:url(images/<%=productData[i].images[0]%> ); ">
+                            
+							<div class="inner">
+								<p>
+									<!-- <button type="submit"  class="icon icon-shopping-cart" style="border: none;"></button> -->
+									<a href="/singleView?id=<%=productData[i]._id%>" class="icon"><i class="icon-eye"></i></a>
+								</p>
+							</div>
+						</div>
+						<div class="desc">
+							<h3><a href="single.html"><%=productData[i].name %></a></h3>
+							<span class="price">₹<%=productData[i].price %></span>
+						</div>
+					</div>
+				</div>
+				<% } else{} %>
+				<% } %>
+				
+				
+                
+				
+
+			</form>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div id="fh5co-counter" class="fh5co-bg fh5co-counter" style="object-fit: cover; width: 100%; height: 100%;">
+		
+
+		<video style="  max-width: 100%;height: auto;" src="images/videoplayback.mp4" class="col-lg-12 " wif muted autoplay loop></video>
+			
+	</div>
+	
+	<div id="fh5co-testimonial" class="fh5co-bg-section">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<span>Testimony</span>
+					<h2>Happy Clients</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row animate-box">
+						<div class="owl-carousel owl-carousel-fullwidth">
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person1.jpg" alt="user">
+									</figure>
+									<span>Jean Doe, via <a href="#" class="twitter">Twitter</a></span>
+									<blockquote>
+										<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person2.jpg" alt="user">
+									</figure>
+									<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+									<blockquote>
+										<p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+							<div class="item">
+								<div class="testimony-slide active text-center">
+									<figure>
+										<img src="images/person3.jpg" alt="user">
+									</figure>
+									<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+									<blockquote>
+										<p>&ldquo;Far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+	<!-- <div id="fh5co-started">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Newsletter</h2>
+					<p>Just stay tune for our latest Product. Now you can subscribe</p>
+				</div>
+			</div>
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2">
+					<form class="form-inline">
+						<div class="col-md-6 col-sm-6">
+							<div class="form-group">
+								<label for="email" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="Email">
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<button type="submit" class="btn btn-default btn-block">Subscribe</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-4 fh5co-widget">
+					<h3>Shop.</h3>
+					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Terms</a></li>
+						<li><a href="#">Meetups</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Shop</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Testimonials</a></li>
+						<li><a href="#">Handbook</a></li>
+						<li><a href="#">Held Desk</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Find Designers</a></li>
+						<li><a href="#">Find Developers</a></li>
+						<li><a href="#">Teams</a></li>
+						<li><a href="#">Advertise</a></li>
+						<li><a href="#">API</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block">&copy; 2018 Free HTML5. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+					</p>
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="asset/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="asset/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="asset/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="asset/js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="asset/js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="asset/js/jquery.countTo.js"></script>
+	<!-- Flexslider -->
+	<script src="asset/js/jquery.flexslider-min.js"></script>
+	<!-- Main -->
+	<script src="asset/js/main.js"></script>
+
+	</body>
+</html>

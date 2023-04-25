@@ -1,0 +1,142 @@
+<%- include('../adminlayout/header.ejs') -%>
+
+  <style>
+    .scroll {
+      overflow: scroll;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
+
+  <div class="container mt-5">
+    <div class="row tm-content-row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-products">
+          <div class="tm-product-table-container mb-0">
+            <h3 class="text-center mb-5">View order</h3>
+
+
+            <% if(filterData.length!=0){ %>
+
+            <div id="dash" class="scroll" >
+              <table id="salesTable" class="ms-5 table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">PRODUCT</th>
+                    <th scope="col">DATE</th>
+                    <th scope="col">PRICE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% filterData.forEach((value, i)=> { %>
+
+                    <tr>
+                      <th scope="row">
+                        <%= i + 1 %>
+                      </th>
+                      <td>
+                        <%= value.address[0].name %>
+                      </td>
+                      <td>
+                        <%= value.order[0].product.name %>
+                      </td>
+                      <td>
+                        <%= new Date(value.order[0].date).toLocaleDateString('en-GB') %>
+                      </td>
+
+                      <td>₹<%= value.order[0].price %>
+                      </td>
+                    </tr>
+                    <% }) %>
+
+                </tbody>
+              </table>
+            </div>
+            <% }else{ %>
+
+              <tr>
+                <div   colspan="5" class="text-center text-danger " style="font-size: larger;">No Reports to Show !!!!</div>
+                
+            </tr>
+            <% } %>
+
+           
+
+
+          </div>
+          <div class="row" style=" margin-top:100px ;">
+            <div class="col-lg-6 col-sm-6">
+              <form onsubmit=" return validateDates()" action="/admin/salesreport" method="post">
+                <label for="first">From Date:</label>
+                <input id="first" name="first" type="date" required min="2021-01-01" max="2023-12-31">
+                <label for="last">To Date:</label>
+                <input id="last" name="last" type="date" required min="2021-01-01" max="2023-12-31">
+                <button  type="submit" class="btn btn-danger">Submit</button>
+              </form>
+
+            </div>
+            <div class="col-lg-6 col-sm-6 " style="text-align: end;">
+              <button class="btn btn-success" onclick="demoFromHTML()">Print</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <section class="row vw-100 m-0 p-0  ">
+
+  </section>
+  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+  <script>
+
+    function demoFromHTML() {
+      console.log('hdbvj');
+      printTable()
+      function printTable() {
+        var table = document.getElementById("salesTable");
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()">' + table.outerHTML + '</html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+      }
+
+    }
+  </script>
+
+  <script>
+    
+    function validateDates() {
+      var firstDate = new Date(document.getElementById('first').value);
+      var lastDate = new Date(document.getElementById('last').value);
+      if (firstDate > lastDate) {
+        swal({
+          title: "Error",
+          text: "The first date must be earlier than the second date.",
+          icon: "error",
+          button: "OK",
+        });
+        return false;
+      }
+      return true;
+    }
+  </script>
+
+  <%- include('../adminlayout/footer.ejs') -%>

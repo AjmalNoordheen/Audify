@@ -1,0 +1,107 @@
+<%- include('../adminlayout/header.ejs'); -%>
+
+
+
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+            <h2 class="tm-block-title">Product Categories</h2>
+            <div class="tm-product-table-container">
+              <table class="table tm-table-small tm-product-table">
+                  <thead >
+                    <tr class="text-center">
+                      <th scope="col">NO</th>
+                      <th scope="col">CATEGORY</th>                                  
+                      <th scope="col">Delete</th>                                  
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (categoryList.length > 0) { %>
+                    <% for( let i = 0; i < categoryList.length; i++ ) { %>
+                    
+
+                        <tr class="text-center">
+                          <td class=""><%= i + 1 %></td>
+                          <td class=""><%= categoryList[i].name%></td>
+                           <td>
+                            <a href="/admin/category/delete?id=<%= categoryList[i]._id %>" id="del" class="tm-product-delete-link">
+                              <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                              </a>
+                             
+                              <% } %>
+                           </td> 
+                        </tr>
+                    <% }else{ %>
+                      <tr>
+                        <td class="tm-product-name">did'nt have any category</td>
+                       </tr>
+                    <% } %>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+    <div class="col-lg-6  mx-auto tm-login-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h2 class="tm-block-title mb-4">To add Category</h2>
+            <% if (message != null) { %>
+              <script>
+                    swal({
+                      title: "Success!",
+                      text: " <%= message %> ",
+                      icon: "success",
+                      timer:2000,
+                      showConfirmButton: false
+                    })
+            </script>
+            <% } %>
+
+            <% if (mess != null) { %>
+              <script>
+                    swal({
+                      title: "Warning!",
+                      text: " <%= mess %> ",
+                      icon: "error",
+                      timer:2000,
+                      showConfirmButton: false
+                    })
+            </script>
+            <% } %>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <form action="/admin/category/add" method="post" class="tm-login-form">
+              <div class="form-group mt-3">
+                <label for="password">Category</label>
+                <input
+                  name="category"
+                  type="text"
+                  class="form-control validate"
+                  id=""
+                  required
+                />
+              </div>
+              <div class="form-group mt-4">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block text-uppercase"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <%- include('../adminlayout/footer.ejs'); -%>

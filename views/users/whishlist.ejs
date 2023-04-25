@@ -1,0 +1,209 @@
+<%- include('../layouts/header.ejs') %>
+
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <!-- <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>All departments</span>
+                        </div> -->
+                        <!-- <ul>
+                            <li><a href="#">Fresh Meat</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Fruit & Nut Gifts</a></li>
+                            <li><a href="#">Fresh Berries</a></li>
+                            <li><a href="#">Ocean Foods</a></li>
+                            <li><a href="#">Butter & Eggs</a></li>
+                            <li><a href="#">Fastfood</a></li>
+                            <li><a href="#">Fresh Onion</a></li>
+                            <li><a href="#">Papayaya & Crisps</a></li>
+                            <li><a href="#">Oatmeal</a></li>
+                            <li><a href="#">Fresh Bananas</a></li>
+                        </ul> -->
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <!-- <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div> -->
+                        <!-- <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Wish List</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">Home</a>
+                            <span>Wish List</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>  
+                                    <th style="margin-right: 10px;"></th>
+                                    
+                                    
+                                    <th>Price</th>
+                                    <!-- <th>Total</th> -->
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <% if(userShema.whishList.length>0){%>
+                                    
+                                    <%for(let i=0;i<userShema.whishList.length;i++){%>
+                                        <tr id="<%=userShema.whishList[i].product._id%>">
+                                        <td class="shoping__cart__item">
+                                            <img src="images/<%=userShema.whishList[i].product.images[0]%> " alt="" height="97px" width="99px" >
+                                            <h5> <%=userShema.whishList[i].product.name%> </h5>
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                        
+                                        </td>
+                                       
+                                        <td class="shoping__cart__total">
+                                            <%=userShema.whishList[i].product.price%>
+                                        </td>
+                                        <form action="/cart?id=<%=userShema.whishList[i].product._id%>" method="post">
+                                        <td class="shoping__cart__item__close">
+                                        <button class="primary-btn" style="background-color: black; color: white;" type="submit"> Add To cart</button>
+                                        <td> <a class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#exampleModalCenter<%= i %>">
+                                            <i class="fa fa-times"></i>
+                                        </a></td>
+  <!-- Launch demo modal -->
+</button>
+
+<div class="modal fade" id="exampleModalCenter<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Alert!</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <p style="color: red; font-weight: bold;"> Do you really want to delete it from WishList ? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="closeBtn btn btn-success" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="remove('<%=userShema.whishList[i].product._id%>')">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+                                    </form>
+                                       <% }
+                                    } %>
+                                        </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             
+            <% if (mess != null) { %>
+              <script>
+                    swal({
+                      title: "Success!",
+                      text: " <%= mess %> ",
+                      icon: "success",
+                      timer:2000,
+                      showConfirmButton: false
+                    })
+            </script>
+            <% } %>
+          
+          
+          
+
+             
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="/shop" class="primary-btn" style="background-color: black;">CONTINUE SHOPPING</a>
+                       
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Shoping Cart Section End -->
+    
+    <%- include('../layouts/footer.ejs') %>
+
+    <!-- // =Remove from wishList -->
+<script>
+    function remove(productId) {
+          $.ajax({
+          type: "get",
+          url:`/wishlist/delete?id=${productId}`,
+          success: function(response) {
+          // handle successful response
+                  swal({  
+                      title: "Success!",  
+                      text: response.message,  
+                      icon: "success",  
+                      timer:2000,
+                      showConfirmButton: false
+                  });     
+                  const divToRemove = document.getElementById(productId);
+                          divToRemove.remove();
+          
+                 
+                          $(document).ready(() => {
+                                $('.closeBtn').click()})
+                  
+                },
+          error: function(xhr, status, error) {
+          // handle error response
+          }
+          });
+      }
+
+    </script>

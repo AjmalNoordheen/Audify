@@ -1,0 +1,67 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>INEAR AUDIFY</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/loginform/css/style.css">
+
+	</head>
+	<body class="img js-fullheight" >
+	<section class="ftco-section" style="background-image: url(/images/HEADPHONE3.jpg);  background-size:cover; background-repeat: no-repeat; height:100vh;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<!-- <h2 class="heading-section">Otp Login</h2> -->
+				</div>
+			</div>
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap ">
+		      	<h3 class="mb-4 text-center">Have an account?</h3>
+		      	<form action="/otp" method="post" class="signin-form">
+		      		<div class="form-group">
+		      			<input type="number" class="form-control" name="mobile" style="text-align: center;" placeholder="Enter Mobile Number" required>
+		      		</div>
+	            
+	            <div class="form-group ">
+	            	<button type="submit" class="form-control btn btn-primary submit px-3">Send OTP</button>
+	            </div>
+	            <div class="form-group d-flex text-center" style="margin-left: 7rem;">
+	            	<div class="w-50  justify-content-center">
+		            	<label><a style="color:rgba(255, 255, 255, 0.752);" href="/login">Email Login</a>
+									  
+									
+									</label>
+								</div>
+								<!-- <div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">Forgot Password</a>
+								</div> -->
+	            </div>
+	          </form>
+			  <% if (message!=null) { %>
+				<div><small class="text-danger"><%= message %></small></div>
+				
+				<% } %>
+		  </div>
+	          <p class="w-100 text-center" >&mdash;<a href="/register"> Don't have an Account-Sign Up</a> &mdash;</p>
+	         
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="/loginform/js/jquery.min.js"></script>
+  <script src="/loginform/js/popper.js"></script>
+  <script src="/loginform/js/bootstrap.min.js"></script>
+  <script src="/loginform/js/main.js"></script>
+
+	</body>
+</html>

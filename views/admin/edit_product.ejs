@@ -1,0 +1,191 @@
+<%- include('../adminlayout/header.ejs'); -%>
+
+
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Edit Product</h2>
+            </div>
+          </div>
+          <div class="row">
+           
+          
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <form action="/admin/editProduct?id=<%= product._id %>" method="post"  class="tm-edit-product-form"  enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                  <label
+                    for="name"
+                    >Product Name
+                  </label>
+                  <input id="name" name="name" type="text" class="form-control validate" required  value="<%=product.name  %>"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >Brand
+                    </label>
+                    <input
+                      id="name"
+                      name="brand"
+                      type="text"
+                      class="form-control validate"
+                      required
+                      value="<%=product.brand %>"
+                    />
+                  </div>
+                     
+                    <div class="form-group mb-3">
+                  <label
+                    for="category"
+                    >Category</label
+                  >
+
+                  <select   
+                    class="custom-select tm-select-accounts"
+                    id="category"
+                    name="category"
+                  >
+                  <option selected><%=product.category.name%></option>
+                 <% for( let i = 0; i <categories.length; i++ ) { %>
+                      
+              
+                    
+                    <option value="<%=categories[i].name%>" ><%=categories[i].name%></option>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label
+                    for="description"
+                    >Description</label
+                  >
+                  
+                  <textarea
+                    class="form-control validate"
+                    rows="3"
+                    required
+                    name="description"
+                  ><%=product.description %></textarea>
+                </div>
+                
+
+    
+                
+                <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="expire_date"
+                          >Price
+                        </label>
+                        <input
+                          id="expire_date"
+                          name="price"
+                          type="number"
+                          class="form-control validate"
+                          data-large-mode="true"
+                          value="<%=product.price %>"
+                        />
+                      </div>
+                      
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="stock"
+                          >Quantity
+                        </label>
+                        <input
+                          id="stock"
+                          name="quantity"
+                          type="text"
+                          class="form-control validate"
+                          required
+                          value="<%= product.quantity %>"
+                        />
+                      </div>
+                </div>
+                
+                <div class="col-12 text-center">
+                
+                  <% if (message != null) { %>
+                    <script>
+                          swal({
+                            title: "Success!",
+                            text: " <%= message %> ",
+                            icon: "success",
+                            timer:1000,
+                            showConfirmButton: false
+                          })
+                  </script>
+                  <% } %>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4" >
+            
+          <div class="d-flex justify-content-around">
+            <% if(product.images.length > 0){%>
+             <% for(let i = 0;i<product.images.length;i++){%>
+              
+              <div class="position-relative"> 
+                 <a href="/admin/image/delete?id=<%=product.images[i]%>&product=<%=product._id%>">
+                  <img src="/images/<%=product.images[i]%>" id="img" width="75" height="75" alt="">
+                  <span class="fa fa-close position-absolute text-danger">
+                  </span>
+                </a></div>
+
+                <%} %>
+            <%} %>
+            <!-- <div class="position-relative">  
+              <a href="/admin/image/delete/<%=product.images[0]%>/<%=product._id%>">
+                <img src="/images/<%=product.images[0]%>" id="img" width="75" height="75" alt="">
+                <span class="fa fa-close position-absolute text-danger"></span>
+              </a>
+            </div>
+            <div class="position-relative">  <a href="/admin/image/delete/<%=product.images[1]%>/<%=product._id%>"><img src="/images/<%=product.images[1]%>" id="img" width="75" height="75" alt=""><span class="fa fa-close position-absolute text-danger"></span></a></div>
+            <div class="position-relative">  <a href="/admin/image/delete/<%=product.images[2]%>/<%=product._id%>"><img src="/images/<%=product.images[2]%>" id="img" width="75" height="75" alt=""><span class="fa fa-close position-absolute text-danger"></span></a></div>
+            <div class="position-relative">  <a href="/admin/image/delete/<%=product.images[3]%>/<%=product._id%>"><img src="/images/<%=product.images[3]%>" id="img" width="75" height="75" alt=""><span class="fa fa-close position-absolute text-danger"></span></a></div> -->
+      
+          </div>
+              <div class="custom-file mt-5 mb-3">
+                <input id="fileInput"  onchange="viewImage(event)" name="images" type="file" style="display:none;" multiple/>
+                <input
+               \search
+                  type="button"
+                  class="btn btn-primary btn-block mx-auto"
+                  value="UPLOAD PRODUCT IMAGE"
+                  onclick="document.getElementById('fileInput').click();"
+                />
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<% 
+
+if(typeof message!=='undefined'){
+    %>
+    <p style="color: rgb(4, 226, 4);"><%= message %></p>
+    <%
+}
+
+%>
+ <%- include('../adminlayout/footer.ejs'); -%></div>
+
+ <script>
+  function viewImage(event){
+    document.getElementById('img').src=URL.createObjectURL(event.target.files[1])
+  }
+  </script>

@@ -1,0 +1,622 @@
+<%- include('../layouts/header.ejs',{session}) %>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+#modalcoupon {
+  width: 100%;
+  height: 38vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* background-color: #dc143c; */
+}
+
+.card {
+  width: 400px;
+  height: 180px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgba(114, 98, 98, 0.2);
+  background-color: #d4cccc;
+  padding: 10px 10px;
+  position: relative;
+}
+
+.main,
+.copy-button {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+}
+.card::after {
+  position: absolute;
+  content: "";
+  height: 40px;
+  right: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color: (201, 0, 0);
+  width: 40px;
+}
+
+.card::before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  left: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color: (201, 0, 0);
+  width: 40px;
+}
+
+.co-img img {
+  width: 80px;
+  height: 80px;
+}
+.vertical {
+  border-left: 5px dotted black;
+  height: 100px;
+  position: absolute;
+  left: 40%;
+}
+
+.content h1 {
+  font-size: 35px;
+  margin-left: -20px;
+  color: #000000;
+}
+
+.content h1 span {
+  font-size: 18px;
+}
+.content h2 {
+  font-size: 18px;
+  margin-left: -20px;
+  color: #070606;
+  text-transform: uppercase;
+}
+
+.content p {
+  font-size: 16px;
+  color: #000000;
+  margin-left: -20px;
+}
+
+.copy-button {
+  margin: 12px 0 -5px 0;
+  height: 45px;
+  border-radius: 4px;
+  padding: 0 5px;
+  border: 1px solid #e1e1e1;
+}
+
+.copy-button input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.copy-button button {
+  padding: 5px 20px;
+  background-color: #050303;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.buy{
+ position: absolute;
+  content: "";
+  bottom: 20px;
+  left:20px;
+  background-color: #dc143c;
+ }
+</style>
+   
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Checkout</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/">Home</a>
+                            <span>Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+        
+            
+                         
+                                <div class="checkout__form">
+                                    <h4>Billing Details</h4>
+                                    <form action="/ordersuccess?grand=<%=cartDetails.cart[0].grandTotal %>" method="post">                                   
+
+                                        <div class="row">
+                                            
+                                            <%if(addressDetails.length>0){%>
+
+                                            
+                                <div class="col-lg-8 col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Fist Name<span>*</span></p>
+                                                <input name="name" type="text" value="<%=addressDetails[0].name %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- <div class="checkout__input">
+                                                <p>Last Name<span>*</span></p>
+                                                <input type="text">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text"  name="house" value="<%=addressDetails[0].houseName%>" placeholder="Street Address" class="checkout__input__add">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Town/City<span>*</span></p>
+                                        <input type="text" name="town" value="<%=addressDetails[0].townCity %>">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Country/State<span>*</span></p>
+                                        <input type="text" name="state" value="<%=addressDetails[0].state %>">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Postcode / ZIP<span>*</span></p>
+                                        <input type="text" name="pincode" value="<%=addressDetails[0].pincode %>">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Phone<span>*</span></p>
+                                                <input type="text" name="mobile" value="<%=addressDetails[0].mobileNo %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Email<span>*</span></p>
+                                                <input type="text" name="email" value="<%=addressDetails[0].email %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                   <a href="/userAddress"><input class="btn" style="font-family: 'Nike Futura','Helvetica Neue',Helvetica,Arial,sans-serif; color: white; border-radius: 50px;  background-color: black;   align-items: center;  width: 300px;
+                                        height: 53px;" placeholder="add an alternative address"></div></a> 
+                                        
+                                    
+                                    
+                                    
+
+                                  </div>
+                                <%}else{%>
+                                     <div class="col-lg-8 col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Fist Name<span>*</span></p>
+                                                <input name="name" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- <div class="checkout__input">
+                                                <p>Last Name<span>*</span></p>
+                                                <input type="text">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text"  name="house" value="" placeholder="Street Address" class="checkout__input__add">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Town/City<span>*</span></p>
+                                        <input type="text" name="town" value="">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Country/State<span>*</span></p>
+                                        <input type="text" name="state" value="">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Postcode / ZIP<span>*</span></p>
+                                        <input type="text" name="pincode" value="">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Phone<span>*</span></p>
+                                                <input type="text" name="mobile" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Email<span>*</span></p>
+                                                <input type="text" name="email" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                   <a href="/userAddress"><input class="btn" style="font-family: 'Nike Futura','Helvetica Neue',Helvetica,Arial,sans-serif; color: white; border-radius: 50px;  background-color: black;   align-items: center;  width: 300px;
+                                        height: 53px;" placeholder="add an alternative address"></div></a> 
+                                        
+                                    
+                                    
+                                    
+
+                                  </div>
+                              <%  } %>
+                                  <div class="col-lg-4 col-md-6">
+                                    <div class="checkout__order" style="width: 28rem;">
+                                        <h4>Your Order</h4>
+                                        <div class="checkout__order__products">Products <span>Total</span></div>
+                                        <ul>
+                                            <%for(let i=0;i<cartDetails.cart.length;i++){%>
+                                                <li style="font-size:13px;"><%=cartDetails.cart[i].products.name %> <%=cartDetails.cart[i].quantity %> x <%=cartDetails.cart[i].products.price%><span>&#8377;<%=cartDetails.cart[i].totalprice %></span></li>
+                                           
+                                              <%  } %>
+                                               </ul>
+                                                                            
+                                        
+                                       <div class="checkout__order__subtotal">Sub Total <span id="total"><%=cartDetails.cart[0].grandTotal %></span><span>&#8377;</span></div>
+                                       
+                                        <div class="checkout__order__subtotal"><span>%</span>Discount<span id="percentage"></span></div>
+
+
+
+
+                               
+
+                                        <div class="checkout__order__total" >Total <span id="grandTotal"><%=cartDetails.cart[0].grandTotal %></span><span>&#8377;</span></div>
+                                        
+                                        <div class="checkout__input__checkbox">
+                                            <label for="payment">
+                                                Cash on Delivery
+                                                <input type="radio" value="cod" name="placeorder" id="payment" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div class="checkout__input__checkbox">
+                                            <label for="razorpay">
+                                                Razorpay
+                                                <input type="radio" value="razorpay" name="placeorder" id="razorpay" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <span style="display: none;" id="grandsTotals" name="grandsTotals" ></span>
+                                        <input  type="hidden" name="grand" value="<%=cartDetails.cart[0].grandTotal %>"   >
+
+                                        <button type="submit" class="site-btn">PLACE ORDER</button>
+                                      
+                                    </div>
+                  
+                                    <div class="col-lg-12">
+                                        <div class="shoping__continue">
+                                            <div class="shoping__discount">
+                                                <h5>Discount Codes</h5>
+                                                <form action="#">
+                                                    <input id="coupon" style="width:150px ;height: 42px;" type="text" placeholder="Enter your coupon code">
+                                                    <button onclick="discount()" style="width: 173px; height: 42px;"  type="button" class="site-btn">apply coupon</button>
+                                                   
+                                    
+                                                </form>  
+                                                <span id="messa"></span>                                           
+                                            </div> 
+                                            
+                                        </div>
+                                    </div>
+                                      <!-- Button trigger modal -->
+                                      <button type="button" style="margin-left: 14px;
+                                      margin-top: 20px;" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        coupons
+                                    </button>
+                                             
+                                </div>
+                                
+                           
+                        
+                        </div>
+                    </form>
+           </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+<!-- Morgan -->
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script>  <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+                         
+                        
+                        <!-- Modal -->
+                        <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="background-color:rgba(206, 7, 7, 0.377);">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Coupons</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <% for(let i=0;i<coupon.length;i++){%>
+                                         <div class="modal-body">
+                                        <div class="container" id="modalcoupon">
+                                            <div class="card">
+                                              <div class="main">
+                                                <div class="co-img">
+                                                  <img
+                                                    src="images/inear.jpg"
+                                                    alt=""
+                                                  />
+                                                </div>
+                                                <div class="vertical"></div>
+                                                <div class="content">
+                                                  <h2><%=coupon[i].couponName %></h2>
+                                                  <h1><%=coupon[i].max_discount %>% <span>discount</span></h1>
+                                                  <p>Upto :-<%=coupon[i].expiryDate%></p>
+                                                </div>
+                                              </div>
+                                              <div class="copy-button">
+                                                <input id="copyvalue" type="text" readonly value="<%=coupon[i].couponId %>" />
+                                                <button onclick="copyIt()" class="copybtn">COPY</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                         
+                                        
+                                        <div class="buy">
+                                        </div>
+                                    </div>
+                                  <%  } %>
+                                   
+                                    <!-- <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                          <!-- End Modal -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+ 
+
+</body>
+
+</html>
+<script>
+    
+    function discount(){
+        let couponId=document.getElementById('coupon').value
+        let grandtotal = document.getElementById('grandTotal').textContent
+        let subtotal = document.getElementById('total').textContent
+
+        
+        const xhttp = new XMLHttpRequest()
+
+        $.ajax({
+            type:'post',
+            url:`/coupon`,
+            dataType:'json',
+            contentType:'application/json',
+            data:JSON.stringify({couponId,grandtotal,subtotal}),
+            success:(data)=>{
+                if(data.wrong!=1){
+                    if(data.discount){
+                        document.getElementById('percentage').innerHTML=data.discount;
+                        document.getElementById('grandTotal').innerHTML=data.discountSubtotal
+                        document.getElementById('grandsTotals').innerHTML=data.discountSubtotal
+                       
+                            document.getElementById('messa').innerHTML=data.messa
+
+                        
+                    
+
+                    }else{
+                        document.getElementById('percentage').innerHTML=data.maxDiscount;
+                        document.getElementById('grandTotal').innerHTML=data.discountSubtotal
+                        document.getElementById('grandsTotals').innerHTML=data.discountSubtotal
+
+                       
+                            document.getElementById('messa').innerHTML=data.messa
+
+                                           
+
+                    }
+                    
+                 
+                }else{
+                  
+                            document.getElementById('messa').innerHTML=data.messa
+
+                                                           
+                                             
+                                      
+                            
+
+                }
+            }
+        })
+    }
+</script>
+<script>
+    
+    let copybtn = document.querySelector(".copybtn");
+    
+    
+    function copyIt(){
+      let copyInput = document.querySelector('#copyvalue');
+    
+      copyInput.select();
+    
+      document.execCommand("copy");
+    
+      copybtn.textContent = "COPIED";
+    }
+    
+    </script>
+    <script>
+
+        let orderData='<%=JSON.stringify(order)%>'
+         console.log(orderData)
+        orderData=JSON.parse(orderData.replace(/&#34;/g, '"'));
+        $(document).ready(()=>{
+            if(orderData){
+                x()
+            }
+        })
+        console.log(orderData)
+
+        var options = {
+"key": "rzp_test_11rW0kKCpHkgkC", // Enter the Key ID generated from the Dashboard
+"amount": orderData.amount*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+"currency": "INR",
+"name": "Audify",
+"description": "Test Transaction",
+"image": "https://example.com/your_logo",
+"order_id": orderData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+"handler": function (response){
+ success()
+},
+"prefill": {
+    "name": "Gaurav Kumar",
+    "email": "gaurav.kumar@example.com",
+    "contact": "9000090000"
+},
+"notes": {
+    "address": "Razorpay Corporate Office"
+},
+"theme": {
+    "color": "#3399cc"
+}
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+    alert(response.error.code);
+    alert(response.error.description);
+    alert(response.error.source);
+    alert(response.error.step);
+    alert(response.error.reason);
+    alert(response.error.metadata.order_id);
+    alert(response.error.metadata.payment_id);
+});
+// document.getElementById('rzp-button1').onclick = function(e){
+function x(){
+rzp1.open();
+e.preventDefault();
+}
+function success(){
+    console.log('hai')
+$.ajax({
+type:"GET",
+url:"/razorpay",
+dataType:'json',
+contentType:'application/json',
+success:function(datas){
+    console.log('khjghg');
+    console.log(datas)
+
+    location.href=`/orderSuccess?id=${datas.orderData._id}`
+}
+})
+
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

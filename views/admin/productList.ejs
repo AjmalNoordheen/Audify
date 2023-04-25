@@ -1,0 +1,80 @@
+
+<%- include('../adminlayout/header.ejs'); -%>
+
+
+<div class="container mt-5" >
+  <div class="row tm-content-row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-products">
+        <div class="tm-product-table-container">
+          <table class="table table-hover tm-table-small tm-product-table">
+            <thead>
+              <tr>
+                <th scope="col">&nbsp;</th>
+                
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+
+                <th scope="col">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(productData.length>0){%>
+              <% for(i=0;i<productData.length;i++) {%>
+              <tr>
+                <td scope="row"><% i+1 %></td>
+                <td><img src="/images/<%= productData[i].images[0] %>" alt="" style="width: 70px; height: 70px;"> </td>
+                <td class="tm-product-name"><%= productData[i].name%></td>
+                <td><%= productData[i].brand %></td>
+                <td><%=productData[i].category.name %></td>
+                <td><%= productData[i].price %></td>
+                <td><%= productData[i].quantity %></td>
+
+                <% if(productData[i].is_flagged===0){
+                  %> <td>
+                  <a href="/admin/editProduct?id=<%=productData[i]._id%>" class="tm-product-delete-link">
+                    <i class="fa-sharp fa-solid fa-pen-to-square tm-product-delete-icon" style="color: rgba(255, 255, 255, 0.79);"></i>
+                </a>
+                
+                  <a href="/admin/flagProduct?id=<%-productData[i]._id%>" class="tm-product-delete-link">
+                    <i class="fa-solid fa-flag fa-sharp tm-product-delete-icon" style="color: rgba(255, 255, 255, 0.743);"></i>
+                  </a>
+                </td>
+               <% } else{%>
+                <td>
+                  <a href="" class="tm-product-delete-link">
+                    <i class="fa-solid fa-flag fa-sharp tm-product-delete-icon" style="color: rgba(251, 50, 50, 0.73);"></i>
+                  </a>
+                </td>
+                
+              <% }%>
+               
+              </tr>
+            <% }} 
+
+            else{%>
+              <tr>
+              <td class="tm-product-name">List is Empty</td>
+              </tr>
+           <% } %>
+          </table>
+        </div>
+        <!-- table container -->
+        <a
+          href="/admin/product/add"
+          class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+        <a
+          href="/admin/category/add"
+          class="btn btn-primary btn-block text-uppercase mb-3">Category List</a>
+        
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+<% -include('../layouts/footer.ejs') %>

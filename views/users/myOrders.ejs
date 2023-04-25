@@ -1,0 +1,97 @@
+<%- include('../layouts/header.ejs',{session}); -%>
+
+<div id="page" class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <h4>Orders List</h4>
+    </div>
+  </div>
+  
+  <section class="mt-5 mb-5">
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Order ID & Orderd Date</th>
+              <th scope="col">Expected delivery date</th>
+              <th scope="col">Total Bill</th>
+              <th scope="col">Payment Method</th>
+              <th scope="col">Status</th>
+              <th scope="col">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orderDatas.forEach(element => { %>
+            <% for (let i = 0; i < 1; i++) { %>
+            <tr>
+              <td scope="row">
+                <div>Order ID :<%=element._id%></div>
+                <div>Orderd Date :<%=new Date(element.order[i].date).toLocaleDateString('en-GB')%></div>
+              </td>
+              <td>
+                <div><%=new Date(element.order[i].arrivingDate).toLocaleDateString('en-GB')%></div>
+              </td>
+              <td>
+                <div>₹ <%=element.grandTotal %></div>
+              </td>
+              <td>
+                <div><%=element.paymentMethod %></div>
+              </td>
+              <td>
+                <div><%=element.order[i].status %></div>
+              </td>
+              <td>
+                <a href="/orderView?id=<%=element._id %>" class="btn btn-primary btn-sm">Details</a>
+              </td>
+            </tr>
+            <% } %>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+</div>
+
+<%- include('../layouts/footer.ejs'); -%>
+
+<style>
+  /* Responsive styles */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+  }
+  
+  /* Attractive styles */
+  h4 {
+    font-weight: bold;
+    color: #1e7e34;
+  }
+  
+  table td, table th {
+    vertical-align: middle;
+  }
+  
+  table td {
+    font-size: 14px;
+  }
+  
+  table .btn-primary {
+    background-color: #1e7e34;
+    border-color: #1e7e34;
+    font-size: 14px;
+    padding: 5px 15px;
+  }
+  
+  table .btn-primary:hover {
+    background-color: #18652f;
+    border-color: #18652f;
+  }
+</style>
