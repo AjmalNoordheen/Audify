@@ -38,20 +38,18 @@ const verifyAdd = async (req, res, next) => {
                 if (validExtensions.includes(extension)) {
                     //check if the file extions is valid
                     let image = req.files.map((file) => file);
-                    console.log(image,'ldshfaidhsfo');
                     for (i = 0; i < req.files.length; i++) {
                       let path = image[i].path;
                       const processImage = new Promise((resolve, reject) => {
                         sharp(path)
                         .rotate()
-                        .resize(700, 700)
+                        .resize(500, 500)
                         .toFile("public/images/" + image[i].filename, (err) => {
                           sharp.cache(false);
                           if (err) {
                             console.log(err);
                             reject(err);
                           } else {
-                            console.log(`Processed file: ${path}`);
                             resolve();
                           }
                         });
@@ -95,7 +93,7 @@ const verifyAdd = async (req, res, next) => {
             }
         
     } catch (error) {
-        next()
+        console.log(error);
     }
 
 }
@@ -144,7 +142,7 @@ const editProducts = async (req, res, next) => {
                   const processImage = new Promise((resolve, reject) => {
                     sharp(path)
                     .rotate()
-                    .resize(700, 700)
+                    .resize(500, 500)
                     .toFile("public/images/" + image[i].filename, (err) => {
                       sharp.cache(false);
                       if (err) {

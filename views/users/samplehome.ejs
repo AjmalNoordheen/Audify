@@ -176,9 +176,10 @@
 					<h2 style="color: rgb(0, 0, 0);">Products.</h2>
 					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 				</div>
+				
 			</div>
 			<div class="row">
-			
+				<% if( productData.length > 0){ %>
                 <% for( let i = 0; i < productData.length ; i++ ) { %>
 					<% if(productData[i].is_flagged==0){ %>
 				
@@ -186,10 +187,11 @@
                
 				<div class="col-sm-6 col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url(images/<%=productData[i].images[0]%> ); ">
+						<div class="product-grid" style="background-image:url(images/<%=productData[i].images[2]%> ); ">
                             
 							<div class="inner">
 								<p>
+									
 									<!-- <button type="submit"  class="icon icon-shopping-cart" style="border: none;"></button> -->
 									<a href="/singleView?id=<%=productData[i]._id%>" class="icon"><i class="icon-eye"></i></a>
 								</p>
@@ -203,7 +205,7 @@
 				</div>
 				<% } else{} %>
 				<% } %>
-				
+				<% } %>
 				
                 
 				
