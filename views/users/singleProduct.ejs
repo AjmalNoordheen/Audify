@@ -123,7 +123,6 @@
             </div>
             <div class="row">
                 <%for(let i=0;i<=4;i++){
-                    if(products[i].is_flagged==0){%>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="product__item">
                         <div class="product__item__pic set-bg" style="background-image: url(<%=products[i].images[0]%>);">
@@ -140,8 +139,7 @@
                    
                    
                 </div>
-                <% }
-                    } %>
+                  <%  } %>
                 
                
                 
