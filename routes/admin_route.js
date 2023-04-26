@@ -54,7 +54,7 @@ admin_route.post('/product/add',upload.array('images',4),productController.verif
 admin_route.route('/category/add').get(admin_auth.isLOgin,categoryControl.categoryload).post(categoryControl.addcategory,serverError.errorServer)
 admin_route.get('/productList',admin_auth.isLOgin,productController.productList,serverError.errorServer)
 admin_route.get('/userslist',admin_auth.isLOgin,admin_controller.usersList,serverError.errorServer)
-admin_route.route('/editProduct').get(admin_auth.isLOgin,productController.loadEdit).post(upload.array('images',4),productController.editProducts,serverError.errorServer)
+admin_route.route('/editProduct').get(admin_auth.isLOgin,productController.loadEdit).post(upload.array('images',2),productController.editProducts,serverError.errorServer)
 admin_route.get('/block_user',admin_controller.block_unblock,serverError.errorServer)
 admin_route.get('/flagProduct',admin_auth.isLOgin,productController.flag,serverError.errorServer)
 admin_route.get('/category/delete',admin_auth.isLOgin,categoryControl.deleteCategory,serverError.errorServer)
