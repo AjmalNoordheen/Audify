@@ -182,14 +182,14 @@
 			</div>
 			<div class="row">
 				<% if( productData.length > 0){ %>
-                <% for( let i = 0; i < productData.length ; i++ ) { %>
+                <% for( let i = 0; i < 6 ; i++ ) { %>
 					<% if(productData[i].is_flagged==0){ %>
 				
                 <!-- <form action="/cart?id=" method="post"> -->
                
 				<div class="col-sm-6 col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url(images/<%=productData[i].images[2]%> ); ">
+						<div class="product-grid" style="background-image:url(images/<%=productData[i].images[0]%> ); ">
                             
 							<div class="inner">
 								<p>

@@ -57,7 +57,6 @@ const otpPage = async (req, res) => {
 const verifyotp = async (req, res) => {
      const { otp } = req.body
      const mobile = req.session.number
-     console.log(mobile + '====kkkkkkkkkkkkkk')
      const userData = await User.findOne({ mobile: mobile })
      try {
           const verification_check = await
@@ -74,7 +73,7 @@ const verifyotp = async (req, res) => {
                          }
 
                     }).catch((err) => {
-                         console.log(err)
+                         res.redirect('/admin/servererror')  
                     })
      } catch (error) {
           res.redirect('/admin/servererror')  

@@ -235,7 +235,7 @@
                                         
                                     </div>
                                     <div class="latest-prdouct__slider__item">
-                                        <% for(let i=0;i< 2;i++){ %>
+                                        <% for(let i=0;i< 3;i++){ %>
                                             <% if(products[i].is_flagged==0) {%>
                                         <a href="#" class="latest-product__item">
                                             <div class="latest-product__item__pic">
@@ -285,7 +285,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="">
-                                    <img id="images" src="/images/<%=products[i].images[0] %>" alt="">
+                                    <img id="images" src="/images/<%=products[i].images[1] %>" alt="">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="/addtoWhishlist?id=<%=products[i]._id %>"><i class="fa fa-heart"></i></a></li>
 
@@ -306,12 +306,7 @@
 
                     <!-- hdsjhdgjhg -->
                    
-                    <div class="product__pagination">
-                        <% for(let i = 0; i < 5; i++) { %>
-                          <button onclick="pagination('<%= i + 1 %>')"><%= i + 1 %></button>
-                        <% } %>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                      </div>
+                  
                 </div>
             </div>
             </div>
