@@ -1,107 +1,142 @@
 <%- include('../adminlayout/header.ejs') %>
+<style>
+    /* Styles for the breadcrumb navigation */
+/* .bread-crumb {
+  background-color: #bd2828;
+  padding: 10px;
+} */
+
+/* Styles for the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background-color: #141313;
+}
+
+.table td {
+  border-bottom: 1px solid #505050;
+}
+
+/* Styles for the pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination li a {
+  display: block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.pagination li.active a {
+  background-color: #333;
+  color: #fff;
+}
+
+</style>
 <div class="container">
-    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-    
+    <div class="bread-crumb flex-w p-3">
+      <!-- Add breadcrumb content here -->
     </div>
-</div>
-<div id="page">
-    
+  </div>
+  
+  <div id="page">
     <div class="container">
-        <div class="mt-5 ">
-            <h4></h4>
-        </div>
+      <div class="mt-5 ">
+        <h4>Order History</h4>
+      </div>
     </div>
+    
     <section class="mt-5 mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-striped" id="user-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Order ID & Orderd Date</th>
-
-                                <th scope="col">Expected delivery date</th>
-
-                                <th scope="col">Total Bill</th>
-                                <th scope="col">Payment Method</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Details</th>
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                                <% orderData.forEach(element => {
-                                    
-                              
-                            
-                             for( let i = 0; i < 1; i++ ) { %>
-                            
-                            
-                            <tr>
-
-                                <td scope="row">
-                                    <div>Order ID :<%=orderData[i]._id%></div>
-                                    <div>Orderd Date :<%=new Date(element.order[i].date).toLocaleDateString('en-GB')%></div>
-                                    
-                                </td>
-
-                                <td>
-
-                                    <div><%=new Date(element.order[i].arrivingDate).toLocaleDateString('en-GB')%> </div>
-                                  
-                                </td>
-                                <td>
-                                    <div>₹ <%=element.grandTotal %></div>
-                                    
-                                </td>
-
-                                <td>
-                                    <div><%=element.paymentMethod %> </div>
-                                </td>
-                                 <td>
-                                    
-                                    <div><br><%=element.order[i].status %></div>
-                                </td>
-
-                                <td><a href="/admin/orderViews?id=<%=element._id %>" class="btn btn-primary">Details</a></td>
-                            </tr>
-                            <% } %>
-                       <% }); %>
-                            
-                            
-
-                        </tbody>
-                    </table>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped" id="user-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Order ID &amp; Ordered Date</th>
+                    <th scope="col">Expected Delivery Date</th>
+                    <th scope="col">Total Bill</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orderData.forEach(element => {
+                    for( let i = 0; i < 1; i++ ) { %>
+                      <tr>
+                        <td scope="row">
+                          <div>Order ID: <%=orderData[i]._id%></div>
+                          <div>Ordered Date: <%=new Date(element.order[i].date).toLocaleDateString('en-GB')%></div>
+                        </td>
+                        <td>
+                          <div><%=new Date(element.order[i].arrivingDate).toLocaleDateString('en-GB')%></div>
+                        </td>
+                        <td>
+                          <div>₹ <%=element.grandTotal %></div>
+                        </td>
+                        <td>
+                          <div><%=element.paymentMethod %></div>
+                        </td>
+                        <td>
+                          <div><%=element.order[i].status %></div>
+                        </td>
+                        <td>
+                          <a href="/admin/orderViews?id=<%=element._id %>" class="btn btn-primary">Details</a>
+                        </td>
+                      </tr>
+                    <% } %>
+                  <% }); %>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </section>
-
-<nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <% for(i=1;i<=totalPage;i++){ %>
-            <% if(currentPage==i){ %>
-          <li class="page-item active"><a class="page-link" href="/admin/orders?currentpage=<%= i %>"><%= i %></a></li>
-            <%}else{ %>
-          <li class="page-item"><a class="page-link" href="/admin/orders?currentpage=<%= i %>"><%= i %></a></li>
+  
+    <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <% for(i=1;i<=totalPage;i++){ %>
+          <% if(currentPage==i){ %>
+            <li class="page-item active"><a class="page-link" href="/admin/orders?currentpage=<%= i %>"><%= i %></a></li>
+          <%}else{ %>
+            <li class="page-item"><a class="page-link" href="/admin/orders?currentpage=<%= i %>"><%= i %></a></li>
           <%}%>
-          <% }%>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+        <% }%>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
             </a>
           </li>
         </ul>
       </nav>
-
+</div>
 
 <%- include('../adminlayout/footer.ejs') %>

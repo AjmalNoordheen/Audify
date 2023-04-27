@@ -1,4 +1,5 @@
 <%- include('../layouts/header.ejs'); -%>
+
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
     
@@ -44,11 +45,7 @@
                       <th scope="col" class="text-center">Product Price</th>
                       <%  if(orderData.order[0].status=="OrderConfirmed" || orderData.order[0].status=="OrderShipped"
                       ){%>
-                        <td class="column text-center">
-                          <label class="my-3" for="">
-                            <%=new Date(orderData.order[i].arrivingDate).toLocaleDateString('en-GB')%>
-                          </label>
-                        </td>
+                        <th scope="col" class="text-center">expected delivery</th>
                         <%}%>                      <th scope="col" class="text-center">Status</th>
                     </tr>
                   </thead>

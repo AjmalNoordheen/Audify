@@ -1,5 +1,6 @@
 <%- include('../layouts/header.ejs',{session}) %>
 
+
   
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
@@ -77,71 +78,62 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
+                    <div class="shoping__cart__table table-responsiv">
+                        <div class="table-container">
+                            <table >                              
                                 <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th style="color: darkgreen;">Stock</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
+                                  <th class="shoping__product">Products</th>
+                                  <th>Price</th>
+                                  <th class="stock">Stock</th>
+                                  <th>Quantity</th>
+                                  <th>Total</th>
+                                  <th></th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                   <% if(cartdetails.cart.length>0){%>
-
-                                   
-                                    <% for( let i = 0; i < cartdetails.cart.length; i++ ) { %>
-                                        <tr  id="<%=cartdetails.cart[i].products._id%>">
-                                        <td class="shoping__cart__item">
-                                            <img src="images/<%=cartdetails.cart[i].products.images[1] %>" alt="" height="97px" width="99px" >
-                                            <h5><%=cartdetails.cart[i].products.name %></h5>
-                                        </td>                                                                                                                    
-                                       <td class="shoping__cart__price">
-                                            <%=cartdetails.cart[i].products.price %>    
-                                        </td>
-                                        <% if(cartdetails.cart[i].products.quantity>0){%>
-                                            
+                              </thead>
+                              <tbody>
+                                <% if(cartdetails.cart.length>0){%>
+                                  <% for( let i = 0; i < cartdetails.cart.length; i++ ) { %>
+                                    <tr id="<%=cartdetails.cart[i].products._id%>">
+                                      <td class="shoping__cart__item">
+                                        <img src="images/<%=cartdetails.cart[i].products.images[1] %>" alt="" height="97px" width="99px" >
+                                        <h5><%=cartdetails.cart[i].products.name %></h5>
+                                      </td>                                                                                                                    
+                                      <td class="shoping__cart__price">
+                                        <%=cartdetails.cart[i].products.price %>    
+                                      </td>
+                                      <% if(cartdetails.cart[i].products.quantity>0){%>
                                         <td><%=cartdetails.cart[i].products.quantity %></td>
-
                                         <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    
-                                                     <button onclick="minus('<%=cartdetails.cart[i].products._id %>');discount()" id="minus">-</button>
-                                                     
-                                                   
-                                                  
-                                                                                                                          
-                                                    <input type="text" id="<%=cartdetails.cart[i].products._id%>quantity" value=<%=cartdetails.cart[i].quantity%>>
-                                                    
-                                                        <button onclick="plus('<%=cartdetails.cart[i].products._id %>','<%=cartdetails.cart[i].products.quantity %>');discount()">+</button>
-                                                </div>
+                                          <div class="quantity">
+                                            <div class="pro-qty">
+                                              <button onclick="minus('<%=cartdetails.cart[i].products._id %>');discount()" id="minus">-</button>
+                                              <input type="text" id="<%=cartdetails.cart[i].products._id%>quantity" value=<%=cartdetails.cart[i].quantity%>>
+                                              <button onclick="plus('<%=cartdetails.cart[i].products._id %>','<%=cartdetails.cart[i].products.quantity %>');discount()">+</button>
                                             </div>
+                                          </div>
                                         </td>
-                                        <%}else{%>
-                                            <td style="color: red;">Stock is empty</td>
-                                       <% }%>
-                                        <td id="<%=cartdetails.cart[i].products._id %>price" class="shoping_cart_total">
-                                           <span>₹</span>   <%=cartdetails.cart[i].totalprice %>
-                                          
-                                        </td>
-                                        <td class="shoping__cart__item__close">
-                                            <button onclick="removecart('<%=cartdetails.cart[i].products._id%>')" class="icon_close"></button>
-                                        </td>
+                                      <%}else{%>
+                                        <td style="color: red;">Stock is empty</td>
+                                      <% }%>
+                                      <td id="<%=cartdetails.cart[i].products._id %>price" class="shoping_cart_total">
+                                        <span>₹</span>   <%=cartdetails.cart[i].totalprice %>
+                                      </td>
+                                      <td class="shoping__cart__item__close">
+                                        <button onclick="removecart('<%=cartdetails.cart[i].products._id%>')" class="icon_close"></button>
+                                      </td>
                                     </tr>
                                   <% } %>
                                 <%}else{%>
-                                    <tr>
-                                        <td>
-                                            <h4 style="color: red;" >Cart is Empty</h4></td>
-                                    </tr>
+                                  <tr>
+                                    <td>
+                                      <h4 style="color: red;" >Cart is Empty</h4>
+                                    </td>
+                                  </tr>
                                 <% }%>
-                                
-                            </tbody>
-                        </table>
+                              </tbody>
+                            </table>
+                          </div>
+                          
                     </div>
                 </div>
             </div>

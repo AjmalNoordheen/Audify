@@ -23,7 +23,23 @@
         <div class="tm-bg-primary-dark tm-block tm-block-products">
           <div class="tm-product-table-container mb-0">
             <h3 class="text-center mb-5">View order</h3>
-
+            <div class="row" style=" margin-top:100px ;">
+              <div class="col-lg-6 col-sm-6">
+                <form onsubmit=" return validateDates()" action="/admin/sales" method="post">
+                  <label for="first">From Date:</label>
+                  <input id="first" name="first" type="date" required min="2021-01-01" max="2023-12-31">
+                  <label for="last">To Date:</label>
+                  <input id="last" name="last" type="date" required min="2021-01-01" max="2023-12-31">
+                  <button  type="submit" class="btn btn-danger">Submit</button>
+                </form>
+  
+              </div>
+              <div class="col-lg-6 col-sm-6 " style="text-align: end;">
+                <button class="btn btn-success" onclick="demoFromHTML()">Print</button>
+                <button class="btn btn-success" onclick="exportToExcel()">Download csv</button>
+              </div>
+            </div>
+            <br><br>
 
             <% if(filterData.length!=0){ %>
 
@@ -75,21 +91,7 @@
 
 
           </div>
-          <div class="row" style=" margin-top:100px ;">
-            <div class="col-lg-6 col-sm-6">
-              <form onsubmit=" return validateDates()" action="/admin/salesreport" method="post">
-                <label for="first">From Date:</label>
-                <input id="first" name="first" type="date" required min="2021-01-01" max="2023-12-31">
-                <label for="last">To Date:</label>
-                <input id="last" name="last" type="date" required min="2021-01-01" max="2023-12-31">
-                <button  type="submit" class="btn btn-danger">Submit</button>
-              </form>
-
-            </div>
-            <div class="col-lg-6 col-sm-6 " style="text-align: end;">
-              <button class="btn btn-success" onclick="demoFromHTML()">Print</button>
-            </div>
-          </div>
+          
         </div>
         
       </div>
@@ -137,6 +139,22 @@
       }
       return true;
     }
+
+    function exportToExcel() {
+  const table = document.getElementById('salesTable');
+  const workbook = XLSX.utils.table_to_book(table, {sheet:"Sales Data"});
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+  worksheet['!protect'] = {
+    // Set your protection options here
+    selectLockedCells: false, // Allow users to select locked cells
+    formatCells: true, // Allow users to format cells
+    insertRows: true, // Allow users to insert rows
+    insertColumns: true, // Allow users to insert columns
+    password: 'mypassword', // Set a password to unlock the sheet
+  };
+  XLSX.writeFile(workbook, 'sales_data.xlsx');
+}
   </script>
 
   <%- include('../adminlayout/footer.ejs') -%>
