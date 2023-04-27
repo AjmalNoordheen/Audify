@@ -32,6 +32,8 @@ const CheckOut = async (req, res, ) => {
 
     const coupon = await couponSchema.find({ ref: '1' })
     const cartDetails = await user.findOne({ _id: user_id }).populate('cart.products')
+    if(cartDetails.cart[0]!==undefined){
+
     const userDetails = await user.findOne({ _id: user_id })
 
 
@@ -47,7 +49,7 @@ const CheckOut = async (req, res, ) => {
     }
 
     res.render("checkout", { cartDetails, session: user_id, addressDetails, userDetails, is_show, coupon, order })
-
+  }
   } catch (error) {
     res.redirect('/admin/servererror')  
   }
