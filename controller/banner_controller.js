@@ -2,20 +2,21 @@ const banner = require('../model/banner_model')
 let message
 // =======Render Banner========
 
-const bannerPage = async (req, res, next) => {
+const bannerPage = async (req, res) => {
     try {
         const bannerDetails = await banner.find()
         res.render('banner', { message, bannerDetails })
         message = null
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
+
     }
 }
 
 
 // =======Add Banner======
 
-const addBanner = async (req, res, next) => {
+const addBanner = async (req, res) => {
     try {
         let images = []
         for (let i = 0; i < req.files.length; i++) {
@@ -36,7 +37,7 @@ const addBanner = async (req, res, next) => {
             res.redirect('/admin/banner')
         }
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
     }
 }
 
@@ -47,7 +48,7 @@ const deleteBanner = async (req, res, next) => {
         await banner.deleteOne({ _id: bannerId })
         res.redirect('/admin/banner')
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
     }
 }
 

@@ -22,7 +22,7 @@ let mess
 let is_show
 // =====CheckOut Page==========
 
-const CheckOut = async (req, res, next) => {
+const CheckOut = async (req, res, ) => {
   try {
 
     const user_id = req.session.user_id
@@ -49,11 +49,11 @@ const CheckOut = async (req, res, next) => {
     res.render("checkout", { cartDetails, session: user_id, addressDetails, userDetails, is_show, coupon, order })
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 // =======Place Order==========
-const placeorder = async (req, res, next) => {
+const placeorder = async (req, res, ) => {
 
   try {
     const id = req.session.user_id
@@ -172,7 +172,7 @@ const placeorder = async (req, res, next) => {
       res.redirect("/checkout")
     }
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send("Server Error");
   }
 }
@@ -206,7 +206,7 @@ const razorpay = async (req, res) => {
 
 }
 
-const orderSuccess = async (req, res, next) => {
+const orderSuccess = async (req, res, ) => {
   try {
     req.session.order = null
     const orderId = req.query.id
@@ -215,14 +215,14 @@ const orderSuccess = async (req, res, next) => {
 
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send("Server Error");
   }
 }
 
 // =======Orders Listed Page========
 
-const myOrders = async (req, res, next) => {
+const myOrders = async (req, res, ) => {
   try {
     const userId = req.session.user_id
     const User = await user.findById({ _id: userId })
@@ -231,14 +231,14 @@ const myOrders = async (req, res, next) => {
 
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send("Server Error");
   }
 }
 
 
 // ======for Single view of the order======
-const orderView = async (req, res, next) => {
+const orderView = async (req, res, ) => {
   try {
     const session = req.session.user_id
     orderId = req.query.id
@@ -249,15 +249,14 @@ const orderView = async (req, res, next) => {
     res.render("orderView", { orderData, session, total })
 
   } catch (error) {
-    next()
-    res.status(500).send("Server Error");
+    res.redirect('/admin/servererror')  
   }
 }
 
 
 // =======Cancel Order=====
 
-const cancelOrder = async (req, res, next) => {
+const cancelOrder = async (req, res, ) => {
   try {
 
     const id = req.query.id
@@ -284,14 +283,14 @@ const cancelOrder = async (req, res, next) => {
   }
 
   catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 
 // ========Return Order==========
 
-const returnOrder = async (req, res, next) => {
+const returnOrder = async (req, res, ) => {
   try {
     const id = req.query.id
     const Data = await orderschema.findOne({ _id: id })
@@ -316,7 +315,7 @@ const returnOrder = async (req, res, next) => {
     res.json(responseData)
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send("Server Error");
   }
 }
@@ -325,7 +324,7 @@ const returnOrder = async (req, res, next) => {
 
 
 // =====coupon=====
-const useCoupon = async (req, res, next) => {
+const useCoupon = async (req, res, ) => {
   try {
     const couponId = req.body.couponId;
     const subTotal = req.body.subtotal;
@@ -389,14 +388,14 @@ const useCoupon = async (req, res, next) => {
       res.status(404).send({ message: 'Coupon not found' });
     }
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send({ message: 'Internal server error' });
   }
 };
 
 //   =========User Profile Page Rendering=======
 
-const userProfile = async (req, res, next) => {
+const userProfile = async (req, res, ) => {
   try {
     const session = req.session.user_id
     if (session) {
@@ -410,95 +409,28 @@ const userProfile = async (req, res, next) => {
     }
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
-//------------------------------------------------------------------------------------------- 
-// Function for sending Mail
-
-const sendVerifyMail = async (name, email, user_id) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
-      auth: {
-        user: 'ajmalnoordheenkn@gmail.com',
-        pass: 'bsqzklfptirmwseo'
-      }
-
-    })
-
-    const mailOptions = {
-      from: 'ajmalnoordheenkn@gmail.com',
-      to: email,
-      subject: 'For Verificatoin Mail',
-      html: '<p>Hii' + name + ',Please Click Here to <a href="http://localhost:5000/verify?id=' + user_id + '">Verify </a> Your mail </p>'
-
-    }
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error.message)
-      } else {
-        console.log('Email has been Sent', info.response)
-      }
-
-    })
-
-  } catch (error) {
-    console.log(error.message)
-  }
-}
-
 
 // ===== Edit User  profile========
 
-const editProfile = async (req, res, next) => {
+const editProfile = async (req, res, ) => {
   try {
     const userid = req.session.user_id
     const { name, emails, phone } = req.body
-    const emailData = await user.findOne({ email: emails })
-    const updateProfile = await user.findByIdAndUpdate({ _id: userid }, { $set: { name: name, mobile: phone } })
+    const updateProfile = await user.findByIdAndUpdate({ _id: userid }, { $set: { name: name, mobile: phone,email: emails } })
 
-
-    if (emails) {
-      if (emailData) {
-        message = 'email already exists'
-        res.redirect('/profile')
-        return true
-      } else {
-        const userData = await user.findOne({ _id: userid })
-        res.redirect('/register')
-        sendVerifyMail(req.body.name, req.body.email, userData._id)
-        await user.findByIdAndUpdate({ _id: userid }, { $set: { email: emails, is_verified: 0 } })
-        message = 'please verify your mail and login for continue'
-        // res.redirect('/logout')
-
-      }
-    }
     res.redirect('/profile')
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 // -------------------------------------------------------------------------------------------------
-// For verify mail 
-
-const verifyMail = async (req, res, next) => {
-  try {
-    const updateInfo = await user.updateOne({ _id: req.query.id }, { $set: { is_verified: 1 } })
-    res.render('email-verified')
-
-  } catch (error) {
-    next()
-  }
-}
-// ===========================================================================================================
 
 // ========User Address Page=========
 
-const userAddress = async (req, res, next) => {
+const userAddress = async (req, res, ) => {
   try {
 
 
@@ -507,23 +439,23 @@ const userAddress = async (req, res, next) => {
     res.render('address', { user: User, session: userid, message, is_show })
     message = null
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 // ===========Rendering Add Address Form=======
-const addAddressPage = async (req, res, next) => {
+const addAddressPage = async (req, res, ) => {
   try {
     const session = req.session.user_id
     const User = await user.findOne({ _id: session })
     res.render('addAdress', { session, user: User, message })
     message = null
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 // ==========Add User Address=======
-const fillAddress = async (req, res, next) => {
+const fillAddress = async (req, res, ) => {
   try {
     const user_id = req.session.user_id
     const User = await user.findOne({ _id: user_id })
@@ -548,13 +480,13 @@ const fillAddress = async (req, res, next) => {
     res.redirect('/userAddress')
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 // =========Delete Address=====
 
-const deleteAddress = async (req, res, next) => {
+const deleteAddress = async (req, res, ) => {
   try {
     const addressId = req.query.id
     const userId = req.session.user_id
@@ -562,13 +494,13 @@ const deleteAddress = async (req, res, next) => {
     message = 'removed from the List'
     res.redirect('/userAddress')
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 // =======Render Edit Address Page======
 
-const editAddressPage = async (req, res, next) => {
+const editAddressPage = async (req, res, ) => {
   try {
     const userId = req.session.user_id
     const addressId = req.query.id
@@ -581,13 +513,13 @@ const editAddressPage = async (req, res, next) => {
     message = null
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 // ========Edit Address=======
 
-const editAddress = async (req, res, next) => {
+const editAddress = async (req, res, ) => {
   try {
     const addressId = req.query.id
     userId = req.session.user_id
@@ -612,7 +544,7 @@ const editAddress = async (req, res, next) => {
     message = 'succesfully Updated'
     res.redirect('/userAddress')
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
@@ -621,5 +553,5 @@ module.exports = {
   CheckOut, myOrders, orderView, cancelOrder,
   returnOrder, useCoupon, userProfile,
   userAddress, addAddressPage, fillAddress, deleteAddress, editAddressPage,
-  editAddress, editProfile, verifyMail
+  editAddress, editProfile
 }

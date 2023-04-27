@@ -700,16 +700,7 @@ const categoryfilter = async (req, res, next) => {
         { name: { $regex: ".*" + search + ".*", $options: "i" } },
       ];
     }
-    // if (filterprice && filterprice.length > 0) {
-    //   if (filterprice.length == 2) {
-    //     query.price = {
-    //       $gte: Number(filterprice[0]),
-    //       $lte: Number(filterprice[1]),
-    //     };
-    //   } else {
-    //     query.price = { $gte: Number(filterprice[0]) };
-    //   }
-    // }
+    
     if (categorys && categorys.length > 0) {
       query.category = { $in: categorys };
     }
@@ -718,9 +709,7 @@ const categoryfilter = async (req, res, next) => {
       .find(query)
       .populate("category")
       .sort(sortOption);
-    // Categorys = categorys.filter((value) => {
-    //   return value !== null;
-    // });
+   
     console.log(totalCount);
     if (Categorys) {
       Categorys.forEach((element, i) => {

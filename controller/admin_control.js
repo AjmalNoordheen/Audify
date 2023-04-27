@@ -5,12 +5,13 @@ const couponSchema = require('../model/couponSchema')
 const orderschema = require('../model/order_model')
 let message
 
-const admin_login = async (req, res, next) => {
+const admin_login = async (req, res, ) => {
   try {
     res.render('login', { message })
     message = null
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
@@ -19,7 +20,7 @@ const admin_login = async (req, res, next) => {
 // Admin Verification
 
 
-const verify_admin = async (req, res, next) => {
+const verify_admin = async (req, res, ) => {
   try {
 
     const adminMail = req.body.email
@@ -50,13 +51,14 @@ const verify_admin = async (req, res, next) => {
     }
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 
 // =========Dash bord=========
-const loginDashbord = async (req, res, next) => {
+const loginDashbord = async (req, res, ) => {
   try {
     const adminData = await User.findOne({ is_admin: 1 });
     const userData = await User.find({ is_admin: 0 })
@@ -227,7 +229,8 @@ const loginDashbord = async (req, res, next) => {
       (message = null);
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
@@ -237,33 +240,35 @@ const loginDashbord = async (req, res, next) => {
 
 // LOGOUT Admin
 
-const logout = async (req, res, next) => {
+const logout = async (req, res, ) => {
 
   try {
     req.session.admin_id = null
     res.redirect('/admin')
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 
 }
 
 //====Load UsersList Page======
 
-const usersList = async (req, res, next) => {
+const usersList = async (req, res, ) => {
   try {
     const users = await User.find({ is_admin: 0 })
     console.log(users);
 
     res.render('UsersList', { userDetails: users })
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 // Block or Unblock User
 // ================================
-const block_unblock = async (req, res, next) => {
+const block_unblock = async (req, res, ) => {
   try {
     userId = req.query.id
     const userData = await User.findById({ _id: userId })
@@ -276,13 +281,14 @@ const block_unblock = async (req, res, next) => {
     }
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 // ======create Coupon Page ========
 
-const createCoupon = async (req, res, next) => {
+const createCoupon = async (req, res, ) => {
   try {
 
     const couponDetails = await couponSchema.find({})
@@ -290,13 +296,13 @@ const createCoupon = async (req, res, next) => {
     message = null
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
   }
 }
 
 
 // =====Add coupon======
-const validateCoupon = async (req, res, next) => {
+const validateCoupon = async (req, res, ) => {
   try {
     const { couponId, expiryDate, minAmount, maxAmount, discount, maxdiscount, couponName } = req.body
     const couponDetails = await couponSchema.findOne({ couponId: couponId })
@@ -324,25 +330,27 @@ const validateCoupon = async (req, res, next) => {
 
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 // ====Delete Coupon======
 
-const deleteCoupon = async (req, res, next) => {
+const deleteCoupon = async (req, res, ) => {
   try {
     const couponId = req.query.id
     await couponSchema.deleteOne({ _id: couponId })
     res.redirect('/admin/coupons/create')
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 // ========USer Orders page=========
 
-const userOrder = async (req, res, next) => {
+const userOrder = async (req, res, ) => {
   try {
     let currentPage = 1
     if (req.query.currentpage) {
@@ -359,26 +367,27 @@ const userOrder = async (req, res, next) => {
     res.render("orderList", { orderData, currentPage, totalPage })
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
     res.status(500).send("Server Error");
   }
 }
 // ========OrderView Page=========
 
-const orderView = async (req, res, next) => {
+const orderView = async (req, res, ) => {
   try {
     const orderId = req.query.id
     const orderData = await orderschema.findOne({ _id: orderId }).populate('order.product')
     res.render("ordersView", { orderData })
 
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
     res.status(500).send("Server Error");
   }
 }
 
 
-const deliverOrder = async (req, res, next) => {
+const deliverOrder = async (req, res, ) => {
   try {
 
     const id = req.query.id
@@ -405,12 +414,13 @@ const deliverOrder = async (req, res, next) => {
   }
 
   catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
 
-const ordershipped = async (req, res, next) => {
+const ordershipped = async (req, res, ) => {
   try {
 
     const id = req.query.id
@@ -436,7 +446,8 @@ const ordershipped = async (req, res, next) => {
   }
 
   catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
   }
 }
 
@@ -448,7 +459,8 @@ const loadSales = async (req, res) => {
     const filterData = await orderschema.find({ order: { $elemMatch: { status: "OrderDelivered" } } }).populate('order.product')
     res.render("salesReport", { filterData })
   } catch (error) {
-    next()
+    res.redirect('/admin/servererror')  
+
     res.status(500).send("Server Error");
   }
 }
@@ -463,11 +475,19 @@ const sales = async (req, res) => {
     res.render("salesReport", { filterData });
 
   } catch (error) {
-    next()
-    res.status(500).send("Server Error");
+res.redirect('/admin/servererror')  
+  res.status(500).send("Server Error");
   }
 }
 
+// Error page 500 
+const error500 = async(req,res)=>{
+  try {
+    res.render('500Error')
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 
@@ -482,5 +502,6 @@ module.exports = {
   validateCoupon,
   deleteCoupon, userOrder,
   orderView, deliverOrder,
-  ordershipped, loadSales, sales
+  ordershipped, loadSales, sales,
+  error500
 }

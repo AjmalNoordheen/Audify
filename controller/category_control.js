@@ -5,21 +5,21 @@ let mess
 
 // ======Render Add Category Page=========
 
-const categoryload = async (req, res, next) => {
+const categoryload = async (req, res) => {
     try {
         const categoryList = await Category.find()
         res.render('add-category', { message, mess, categoryList })
         message = null
         mess = null
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
     }
 }
 
 
 //=============Verify Add Categories ===========
 
-const addcategory = async (req, res, next) => {
+const addcategory = async (req, res) => {
     try {
         const repeatCategory = await Category.findOne({ name: req.body.category })
         if (repeatCategory) {
@@ -38,13 +38,13 @@ const addcategory = async (req, res, next) => {
         }
 
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
     }
 }
 
 // ========Delete category==========
 
-const deleteCategory = async (req, res, next) => {
+const deleteCategory = async (req, res, ) => {
     try {
         const category_Id = req.query.id
         console.log(category_Id)
@@ -58,19 +58,11 @@ const deleteCategory = async (req, res, next) => {
             res.redirect('/admin/category/add')
         }
     } catch (error) {
-        next()
+        res.redirect('/admin/servererror')  
     }
 }
 
-// // Error 500 Page renderin:-
 
-// const serverError = async(req,res)=>{
-//     try {
-//         res.render('500Error')
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
 
 module.exports = {
     categoryload,

@@ -4,7 +4,7 @@ const User = require('../model/user_model')
 let message
 
 let TWILIO_SERVICE_SID = 'VA5d2a80ca95f2fd364727f10a92cb3d38'
-let authToken = 'e45602120f9c913a52b9da5a0a880f58'
+let authToken = '15761f2c806c76283136025002d4f4b7'
 let accountSid = 'AC3edb3a3e94b50e8593d2cce73c1bd2ee'
 const client = require("twilio")(accountSid, authToken);
 
@@ -14,7 +14,7 @@ const otplogin = async (req, res) => {
           res.render('otpLogin', { message })
           message = null
      } catch (error) {
-          console.log(error.message)
+          res.redirect('/admin/servererror')  
      }
 }
 
@@ -39,8 +39,7 @@ const otpPage = async (req, res) => {
           }
 
      } catch (error) {
-          console.log(error.message)
-          res.sendStatus(500)
+          res.redirect('/admin/servererror')  
      }
 }
 
@@ -78,8 +77,7 @@ const verifyotp = async (req, res) => {
                          console.log(err)
                     })
      } catch (error) {
-          console.log(error.message);
-          res.sendStatus(500);
+          res.redirect('/admin/servererror')  
      }
 }
 
@@ -106,8 +104,7 @@ const resendOTP = async (req, res) => {
 
                })
      } catch (err) {
-          console.error(err);
-          res.sendStatus(500);
+          res.redirect('/admin/servererror')  
      }
 };
 
