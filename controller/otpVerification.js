@@ -4,7 +4,7 @@ const User = require('../model/user_model')
 let message
 
 let TWILIO_SERVICE_SID = 'VA5d2a80ca95f2fd364727f10a92cb3d38'
-let authToken = '15761f2c806c76283136025002d4f4b7'
+let authToken = '4aba6ba91b22a33521a2df6a579a93d5'
 let accountSid = 'AC3edb3a3e94b50e8593d2cce73c1bd2ee'
 const client = require("twilio")(accountSid, authToken);
 
