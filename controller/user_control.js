@@ -51,7 +51,7 @@ const sendVerifyMail = async (name, email, user_id) => {
       from: 'ajmalnoordheenkn@gmail.com',
       to: email,
       subject: 'For Verificatoin Mail',
-      html: '<p>Hii' + name + ',Please Click Here to <a href="http://localhost:5000/verify?id=' + user_id + '">Verify </a> Your mail </p>'
+      html: '<p>Hii' + name + ',Please Click Here to <a href="https://audify.store/verify?id=' + user_id + '">Verify </a> Your mail </p>'
 
     }
     transporter.sendMail(mailOptions, function (error, info) {
