@@ -105,7 +105,7 @@ const productList = async (req, res, next) => {
         const productlist = await product.find().populate('category')
         res.render('productList', { productData: productlist })
     } catch (error) {
-        next()
+        console.log(error)
     }
 }
 
