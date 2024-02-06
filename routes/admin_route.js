@@ -1,6 +1,6 @@
 const express = require('express')
 const admin_route = express()
-const config = require('../config/config')
+const configer = require('../config/config')
 const body_parser = require('body-parser')
 const adminControl = require('../controller/admin_control')
 
