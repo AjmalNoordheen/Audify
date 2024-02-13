@@ -182,7 +182,7 @@
 			</div>
 			<div class="row">
 				<% if( productData.length > 0){ %>
-                <% for( let i = 0; i < 6 ; i++ ) { %>
+                <% for( let i = 0; i < 3 ; i++ ) { %>
 					<% if(productData[i].is_flagged==0){ %>
 				
                 <!-- <form action="/cart?id=" method="post"> -->
@@ -200,7 +200,7 @@
 							</div>
 						</div>
 						<div class="desc">
-							<h3><a href="single.html"><%=productData[i].name %></a></h3>
+							<h3><a href="/singleView?id=<%=productData[i]._id%><%=productData[i].name %></a></h3>
 							<span class="price">₹<%=productData[i].price %></span>
 						</div>
 					</div>
